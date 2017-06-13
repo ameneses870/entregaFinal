@@ -42,5 +42,10 @@ export const MESSAGES = {
 	telefono:'Telefono',
 	correo:'Correo',
 	registrarme:'Registrarme',
-	'tituloRegistrar': 'REGISTRARSE'
+	'tituloRegistrar': 'REGISTRARSE',
+	'cargueImagenCancelado':'no selecciono ninguna imagen \npor favor intente de nuevo',
+	'botonFotografia': 'Tomar foto',
+	'validacionRegistrarse': 'Por favor ingrese la informacion solicitada',
+	'validacionCamara': 'Para registrarse debera seleccionar una fotografia de su dispositivo movil',
+	'validacionClaves':'Las claves no coinciden'
 }  

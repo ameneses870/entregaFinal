@@ -59,10 +59,6 @@ export default class ItemBox extends Component{
 		} catch (error) {
 			alert(error);
 		}	
-
-
-      	console.log('>>>>>>>>>>>>>>>>>>>>lista<<<<<<<<<<<<',lista);
-
 	}
 
 	constructor(props){

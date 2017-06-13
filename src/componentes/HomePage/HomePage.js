@@ -11,7 +11,8 @@ import {
   TouchableOpacity,
   ScrollView,
   AsyncStorage,
-  Dimensions
+  Dimensions,
+  Modal
   
 } from 'react-native'
 import {TabNavigator } from 'react-navigation';
@@ -22,7 +23,7 @@ const { width, height } = Dimensions.get("window");
 /*librerias externas*/
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import MaterialTabs from 'react-native-material-tabs'
-
+import ImageViewer from 'react-native-image-zoom-viewer';
 /*imagenes utilizadas*/
 const mark = require('./assets/fondoLogin.png');
 const mark2 = require('./assets/perfilUser.png');
@@ -70,7 +71,8 @@ export default class HomePage extends Component {
       categoria: cate.cloneWithRows(Categorias),
       selectedTab:0,          
       categoriaC:'',
-      data:[]
+      data:[],
+      modalVisible: false
     }; 
 
         /*try {
@@ -105,7 +107,7 @@ export default class HomePage extends Component {
       case 1:       
         return (<ListProductos categoria={categoria}/>)
       case 2:
-        return (<ListCarrito  data={data}/>)        
+        return (<ListCarrito/>)        
     } 
   }
 
@@ -115,7 +117,7 @@ export default class HomePage extends Component {
 
       return(
         <View style={styles.ButtonVerCarrito}>
-          <TouchableOpacity activeOpacity={.5} onPress={this.openDrawer.bind(this)} style={styles.TouchableButtonCarrito}>          
+          <TouchableOpacity activeOpacity={.5} onPress={()=>this.setTab(2,null)} style={styles.TouchableButtonCarrito}>          
             <Icon name="cart" size={50} color={COLOR.COLORICONCAR} />
             <Text>{MESSAGES.VERCARRITO}</Text>
           </TouchableOpacity>   
@@ -126,6 +128,10 @@ export default class HomePage extends Component {
 
   openDrawer() {
     this.refs['DRAWER'].openDrawer();
+  }
+
+  showImage(){
+    this.setState({modalVisible: true})
   }
 
 
@@ -140,6 +146,13 @@ export default class HomePage extends Component {
         <Image source={mark} style={styles.container}>
           <View style={styles.profile}>
             <Image source={mark2} style={styles.imageFontPerfil}>
+              <TouchableOpacity activeOpacity={.5} onPress={()=>this.showImage()}>
+                <Image
+                  resizeMode={'cover'}
+                  style={{width: 150, height:150,borderRadius: 100}}
+                  source={{uri:'https://yt3.ggpht.com/-YL7Ytul0gVU/AAAAAAAAAAI/AAAAAAAAAAA/IZGgDUKL5ro/s900-c-k-no-mo-rj-c0xffffff/photo.jpg'}}
+                />            
+              </TouchableOpacity>
             </Image>
           </View>
           <ScrollView>  
@@ -181,11 +194,12 @@ export default class HomePage extends Component {
           renderNavigationView={() => navigationView}
           ref={'DRAWER'}>       
 
+          
           <ToolBarEdit navigation={this.refs['DRAWER']}>
             <TouchableOpacity activeOpacity={.5} onPress={this.openDrawer.bind(this)}>
               <Icon name="apps" size={30} color={COLOR.COLORICON} />                      
             </TouchableOpacity>
-          </ToolBarEdit>  
+          </ToolBarEdit>          
                   
           <MaterialTabs 
             items={[MESSAGES.TAB1,MESSAGES.TAB2,MESSAGES.TAB3]}          
@@ -198,7 +212,16 @@ export default class HomePage extends Component {
 
           {this.changeTab(this.state.selectedTab,this.state.categoriaC)}       
           {this.showButton()}
-        </DrawerLayoutAndroid>          
+        </DrawerLayoutAndroid>  
+
+        <Modal
+					animationType={"slide"}
+					transparent={false}
+					visible={this.state.modalVisible}
+					onRequestClose={()=> this.setState({modalVisible:false})}
+					>
+					 <ImageViewer imageUrls={[{url: 'https://yt3.ggpht.com/-YL7Ytul0gVU/AAAAAAAAAAI/AAAAAAAAAAA/IZGgDUKL5ro/s900-c-k-no-mo-rj-c0xffffff/photo.jpg'}]}/>
+					</Modal>      
       </View>
     )    
   }

@@ -31,7 +31,6 @@ export default class ItemBox extends Component{
 
 
 
-
 	addToCard= async(codigo,titulo,image,descripcion,precio)=>{
 
 		const producto ={

@@ -8,10 +8,10 @@ export const styles = StyleSheet.create({
     backgroundColor: '#9A2EFE',
     alignItems:'center',
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "center"    
 },  
     input: {      
-      width : 270,
+      width : (width-(width/10))/1.5 ,
       color: "black"
     },
     inputWrap2: {
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
      height: 40,
      backgroundColor: '#fff',
      flexDirection: "row",
-     width:350     
+     width : width-(width/10),   
    },
    iconWrap2: {
      paddingHorizontal: 7,

@@ -104,11 +104,15 @@ export default class Login extends Component{
         })      
   }
 
-  ejecutar(){
-        validarLogin()          
-        .then((responseJson) => {          
-          let a = responseJson['uid'] ? 'homepage':'login'          
-        })
+  ejecutar=()=>{
+    let resetAction = NavigationActions.reset({ 
+            index: 0, 
+            actions: [ 
+            NavigationActions.navigate({ routeName: 'registrarse'}) ] 
+          }) 
+            this.props.navigation.dispatch(resetAction)
+
+    this.props.navigation.navigate('registrarse');
   }
     
   /*                <TouchableOpacity activeOpacity={.5}>  
@@ -166,14 +170,14 @@ export default class Login extends Component{
                   </View>          
                 </TouchableOpacity>
                 <View style={styles.button3}>            
-                  <Icon.Button name="barcode" backgroundColor={COLOR.COLORLOGINBUTTON} onPress={this.ejecutar}>
+                  <Icon.Button name="barcode" backgroundColor={COLOR.COLORLOGINBUTTON}>
                     <TouchableOpacity activeOpacity={.5} disabled={this.state.button}>
                       <Text style={styles.buttonText2}>{MESSAGES.textoRecordarContraseña}</Text>
                     </TouchableOpacity>
                   </Icon.Button>              
                 </View>
                 <View style={styles.button3}>                              
-                    <TouchableOpacity activeOpacity={.5} disabled={this.state.button}>
+                    <TouchableOpacity activeOpacity={.5} disabled={this.state.button} onPress={this.ejecutar}>
                       <Text style={styles.buttonText2}>{MESSAGES.textoCrearCuenta}</Text>
                     </TouchableOpacity>                  
                 </View>

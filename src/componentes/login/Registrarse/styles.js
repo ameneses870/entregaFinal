@@ -78,7 +78,8 @@ export const styles = StyleSheet.create({
   },
   logoAplication:{
     width: 150,
-    height: 150
+    height: 150,
+    borderRadius: 90
   },
   containerFormulario:{
     padding:10,

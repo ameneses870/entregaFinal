@@ -50,7 +50,7 @@ export const App = StackNavigator (
 	},
 
 	{
-		initialRouteName: 'Login'
+		initialRouteName: 'HomePage'
 	}
 
 );

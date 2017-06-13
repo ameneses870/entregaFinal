@@ -20,7 +20,9 @@ export const styles = StyleSheet.create({
 	},
 		imageFontPerfil: {
 		height: 200,
-		backgroundColor: '#FFFFFF',
+		backgroundColor: '#FFFFFF',		
+		paddingHorizontal: 50,
+		paddingVertical: 25,
 		
 	},
 		profile: {

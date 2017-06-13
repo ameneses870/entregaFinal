@@ -8,7 +8,6 @@ import {
 
 
 import ItemBox from './ItemBox'
-
 export default class listCarrito extends Component{
 
 
@@ -21,42 +20,45 @@ export default class listCarrito extends Component{
 		super(props);      							
       	
 		const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		console.log(props.data);
+		//console.log(props.data);
 		this.state = {
-			dataSource: ds.cloneWithRows(props.data),		
-		};    
+			dataSource: ds,
+			items:[]
+		};
+		//this.state={carrito:  this.consultarCarrito()}
 
+		//this.consultarCarrito().then((valor)=>alert(valor))
+		
 	}
 
-              /*<ListView
-              dataSource={this.state.dataSource}
-              renderRow=
-                {(item) =>
+	updateDataSource = (data) => {
+		console.log(data)
+   		return this.state.dataSource.cloneWithRows(data);    
+ 	}
 
-                	(categoria)?	
-                	(
-	                	(categoria===item.categoria) ? 
-	                		<ItemBox codigo={item.code} titulo={item.title} descripcion={item.descripcion} image={item.image} precio={item.precio}/>
-	                	:null
-					)
-					:
-					<ItemBox codigo={item.code} titulo={item.title} descripcion={item.descripcion} image={item.image} precio={item.precio}/>
+	async consultarCarrito(){
+		try {
+			const value = await AsyncStorage.getItem('carrito2');
+			return value;						
+		/*await AsyncStorage.getItem('carrito2',(value)=>{
+			return value;
+		});*/
+		} catch (error) {
+			alert(error)
+		}	
+	}
 
-                }
+	componentDidMount(){
+		this.consultarCarrito().then((data)=>this.setState({items:JSON.parse(data)}))
+	}
 
-              />     */   
-	render(){
-		const categoria= this.props.categoria;
-		const contador=0
-		return( 
-
+	render(){		
+		return (
 			<ListView
-              dataSource={this.state.dataSource}
-              renderRow=
-                {(item) =>
-					<ItemBox codigo={item.codigo} titulo={item.titulo} descripcion={item.descripcion} image={item.image} precio={item.precio}/>
-				}
-			/> 			        
-		)
+			enableEmptySections={true}
+			dataSource={this.updateDataSource(this.state.items)}
+			renderRow={(item) => <ItemBox image={item.image} codigo={item.codigo} titulo={item.titulo} descripcion={item.descripcion} precio={item.precio}/>}	   						  
+			/>
+		);	
 	}
 }
